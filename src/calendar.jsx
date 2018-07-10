@@ -5,6 +5,7 @@ import Month from "./month";
 import Time from "./time";
 import React from "react";
 import PropTypes from "prop-types";
+import RTLDetect from 'rtl-detect';
 import classnames from "classnames";
 import CalendarContainer from "./calendar_container";
 import {
@@ -328,7 +329,7 @@ export default class Calendar extends React.Component {
       "react-datepicker__navigation--previous"
     ];
 
-    let clickHandler = this.decreaseMonth;
+  	let clickHandler = RTLDetect.isRtlLang(this.props.locale) ? this.increaseMonth : this.decreaseMonth;
 
     if (allPrevDaysDisabled && this.props.showDisabledMonthNavigation) {
       classes.push("react-datepicker__navigation--previous--disabled");
@@ -371,7 +372,7 @@ export default class Calendar extends React.Component {
       classes.push("react-datepicker__navigation--next--with-today-button");
     }
 
-    let clickHandler = this.increaseMonth;
+    let clickHandler = RTLDetect.isRtlLang(this.props.locale) ? this.decreaseMonth : this.increaseMonth;
 
     if (allNextDaysDisabled && this.props.showDisabledMonthNavigation) {
       classes.push("react-datepicker__navigation--next--disabled");
